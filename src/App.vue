@@ -1,82 +1,109 @@
 <script setup lang="ts">
-// import { RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
+import PromotionComponent from './components/PromotionComponent.vue'
+import ButtonComponent from './components/ButtonComponent.vue'
+import CategoryComponent from './components/CategoryComponent.vue'
 </script>
 
 <template>
-  <header>
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
+  <div class="container">
+    <!-- CategoryComponent -->
+    <div class="categoryContainer">
+      <CategoryComponent
+        name="Cake & Milk"
+        :items="14"
+        image="src/assets/cake & milk.png"
+        bgColor="#F2FCE4"
+      />
+      <CategoryComponent name="Peach" :items="17" image="src/assets/peach.png" bgColor="#FFFCEB" />
+      <CategoryComponent
+        name="Oganic Kiwi"
+        :items="21"
+        image="src/assets/kiwi.png"
+        bgColor="#ECFFEC"
+      />
+      <CategoryComponent
+        name="Red Apple"
+        :items="68"
+        image="src/assets/apple.png"
+        bgColor="#FEEFEA"
+      />
+      <CategoryComponent name="Snack" :items="34" image="src/assets/snack.png" bgColor="#FFF3EB" />
+      <CategoryComponent
+        name="Black Plum"
+        :items="25"
+        image="src/assets/plum.png"
+        bgColor="#FFF3FF"
+      />
+      <CategoryComponent
+        name="Vegetables"
+        :items="65"
+        image="src/assets/vegetable.png"
+        bgColor="#F2FCE4"
+      />
+      <CategoryComponent
+        name="Headphone"
+        :items="54"
+        image="src/assets/headphone.png"
+        bgColor="#F2FCE4"
+      />
+      <CategoryComponent
+        name="Cake & Milk"
+        :items="54"
+        image="src/assets/Cake & Milk2.png"
+        bgColor="#F2FCE4"
+      />
+      <CategoryComponent
+        name="Orange"
+        :items="63"
+        image="src/assets/orange.png"
+        bgColor="#FFF3FF"
+      />
+    </div>
 
-    <!-- <div class="wrapper">
-      <HelloWorld msg="You did it!" /> -->
-
-    <!-- <nav>
-      <RouterLink to="/"></RouterLink>
-      <RouterLink to="/about"></RouterLink>
-    </nav> -->
-    <!-- </div> -->
-    <h1>This is my first VueJs project</h1>
-  </header>
-
-  <!-- <RouterView /> -->
+    <!-- PromotionComponent -->
+    <div class="promotionContainer">
+      <PromotionComponent
+        title="Everyday Fresh & Clean with Our Products"
+        bgColor="#F0E8D5"
+        image="src/assets/promotion1.jpg"
+        buttonColor="#3BB77E"
+      />
+      <PromotionComponent
+        title="Make your Breakfast Healthy and Easy"
+        bgColor="#F3E8E8"
+        image="src/assets/promotion2.png"
+        buttonColor="#3BB77E"
+      />
+      <PromotionComponent
+        title="The best Organic Products Online"
+        image="src/assets/promotion3.jpg"
+        bgColor="#E7EAF3"
+        buttonColor="#FDC040"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped>
-h1 {
-  color: aqua;
-  margin-left: 50%;
-  width: 100%;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
 }
-
-/* nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-} */
-
-/* nav a.router-link-exact-active {
-  color: var(--color-text);
+.categoryContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-right: 15%;
 }
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.promotionContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-right: 15%;
 }
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-} */
 </style>
