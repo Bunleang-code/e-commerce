@@ -1,8 +1,10 @@
 <template>
   <div class="category-section" :style="{ backgroundColor: bgColor }">
     <img :src="image" alt="" />
-    <h1 class="name">{{ name }}</h1>
-    <p class="items">{{ items }} items</p>
+    <div class="text">
+      <h1 class="name">{{ name }}</h1>
+      <p class="items">{{ items }} items</p>
+    </div>
   </div>
 </template>
 
@@ -23,9 +25,10 @@ defineProps({
   flex-direction: column;
   padding: 10px;
   border-radius: 10px;
+  border: 1px solid rgb(171, 165, 165);
 }
 img {
-  width: 110px;
+  width: 112.5px;
   height: 110px;
 }
 .name {
@@ -36,5 +39,9 @@ img {
 .items {
   font-size: 10px;
   color: gray;
+}
+.text {
+  text-align: center;
+  line-height: 0.8;
 }
 </style>

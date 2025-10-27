@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PromotionComponent from './components/PromotionComponent.vue'
-import ButtonComponent from './components/ButtonComponent.vue'
+// import ButtonComponent from './components/ButtonComponent.vue'
 import CategoryComponent from './components/CategoryComponent.vue'
 </script>
 
@@ -63,22 +63,25 @@ import CategoryComponent from './components/CategoryComponent.vue'
     <!-- PromotionComponent -->
     <div class="promotionContainer">
       <PromotionComponent
-        title="Everyday Fresh & Clean with Our Products"
+        title="Everyday Fresh &<br> Clean with Our <br> Products"
         bgColor="#F0E8D5"
         image="src/assets/promotion1.jpg"
         buttonColor="#3BB77E"
+        :imageStyle="{ width: '250px', objectFit: 'fill' }"
       />
       <PromotionComponent
-        title="Make your Breakfast Healthy and Easy"
+        title="Make your Breakfast <br> Healthy and Easy"
         bgColor="#F3E8E8"
         image="src/assets/promotion2.png"
         buttonColor="#3BB77E"
+        :imageStyle="{ width: '190px', objectFit: 'scale-down' }"
       />
       <PromotionComponent
-        title="The best Organic Products Online"
+        title="The best Organic <br> Products Online"
         image="src/assets/promotion3.jpg"
         bgColor="#E7EAF3"
         buttonColor="#FDC040"
+        :imageStyle="{ width: '250px', objectFit: 'fill' }"
       />
     </div>
   </div>
@@ -91,19 +94,18 @@ import CategoryComponent from './components/CategoryComponent.vue'
   justify-content: center;
   flex-direction: column;
   gap: 40px;
+  margin-top: 80px;
 }
 .categoryContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-right: 15%;
 }
 .promotionContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
-  margin-right: 15%;
 }
 </style>

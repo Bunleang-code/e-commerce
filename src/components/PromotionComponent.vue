@@ -1,10 +1,10 @@
 <template>
   <div class="promotion-section" :style="{ backgroundColor: bgColor }">
     <div class="content">
-      <h1 class="text">{{ title }}</h1>
+      <h1 class="text" v-html="title"></h1>
       <ButtonComponent :label="buttonLabel" :color="buttonColor" />
     </div>
-    <img :src="image" alt="" class="image" />
+    <img :src="image" alt="" class="image" :style="imageStyle" />
   </div>
 </template>
 
@@ -23,6 +23,10 @@ defineProps({
     type: String,
     default: '#3BB77E',
   },
+  imageStyle: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 </script>
 
@@ -31,10 +35,12 @@ defineProps({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding-inline: 48px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   border-radius: 15px;
-  min-height: 200px;
   width: 100%;
+  border: 1px solid rgb(171, 165, 165);
 }
 
 .content {
@@ -49,13 +55,14 @@ defineProps({
   font-size: 25px;
   font-weight: 600;
   line-height: 1.2;
+  white-space: nowrap;
   margin: 0;
 }
 
 .image {
-  width: 325px;
+  /* width: 100px; */
   height: 250px;
-  margin-right: -40px;
+  margin-right: -48px;
   margin-bottom: -8px;
 }
 </style>
