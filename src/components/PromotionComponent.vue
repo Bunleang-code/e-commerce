@@ -2,16 +2,17 @@
   <div class="promotion-section" :style="{ backgroundColor: bgColor }">
     <div class="content">
       <h1 class="text" v-html="title"></h1>
-      <ButtonComponent :label="buttonLabel" :color="buttonColor" />
+      <ButtonComponent @click="shopNow" :label="buttonLabel" :color="buttonColor" />
     </div>
     <img :src="image" alt="" class="image" :style="imageStyle" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { toRefs } from 'vue'
 import ButtonComponent from './ButtonComponent.vue'
 
-defineProps({
+const props = defineProps({
   image: String,
   title: String,
   bgColor: String,
@@ -28,6 +29,12 @@ defineProps({
     default: () => ({}),
   },
 })
+
+const { title, buttonLabel, buttonColor, image, bgColor, imageStyle } = toRefs(props)
+
+const shopNow = (): void => {
+  alert(`Let's shop ${title?.value ?? ''}`)
+}
 </script>
 
 <style scoped>
@@ -55,7 +62,6 @@ defineProps({
   font-size: 25px;
   font-weight: 600;
   line-height: 1.2;
-  white-space: nowrap;
   margin: 0;
 }
 

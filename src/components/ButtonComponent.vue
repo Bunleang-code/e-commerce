@@ -17,5 +17,6 @@ button {
   font-size: 13px;
   font-weight: bold;
   border: none;
+  cursor: pointer;
 }
 </style>
