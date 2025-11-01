@@ -48,23 +48,23 @@ const promotions = ref([
   {
     title: 'Everyday Fresh & Clean with Our Products',
     bgColor: '#F0E8D5',
-    image: 'src/assets/promotion1.jpg',
+    image: 'src/assets/promotion1.png',
     buttonColor: '#3BB77E',
-    imageStyle: { width: '250px', objectFit: 'fill' },
+    imageStyle: { width: '190px', objectFit: 'fill' },
   },
   {
     title: 'Make your Breakfast Healthy and Easy',
     bgColor: '#F3E8E8',
     image: 'src/assets/promotion2.png',
     buttonColor: '#3BB77E',
-    imageStyle: { width: '190px', objectFit: 'scale-down' },
+    imageStyle: { width: '190px', objectFit: 'fill' },
   },
   {
     title: 'The best Organic Products Online',
     image: 'src/assets/promotion3.jpg',
     bgColor: '#E7EAF3',
     buttonColor: '#FDC040',
-    imageStyle: { width: '250px', objectFit: 'fill' },
+    imageStyle: { width: '190px', objectFit: 'fill' },
   },
 ])
 </script>

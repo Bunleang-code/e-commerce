@@ -2,14 +2,13 @@
   <div class="promotion-section" :style="{ backgroundColor: bgColor }">
     <div class="content">
       <h1 class="text" v-html="title"></h1>
-      <ButtonComponent @click="shopNow" :label="buttonLabel" :color="buttonColor" />
+      <ButtonComponent :label="buttonLabel" :color="buttonColor" @click="shopNow" />
     </div>
     <img :src="image" alt="" class="image" :style="imageStyle" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
 import ButtonComponent from './ButtonComponent.vue'
 
 const props = defineProps({
@@ -30,10 +29,8 @@ const props = defineProps({
   },
 })
 
-const { title, buttonLabel, buttonColor, image, bgColor, imageStyle } = toRefs(props)
-
-const shopNow = (): void => {
-  alert(`Let's shop ${title?.value ?? ''}`)
+function shopNow() {
+  alert("Let's shop " + props.title)
 }
 </script>
 
@@ -42,11 +39,10 @@ const shopNow = (): void => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 48px;
+  padding-inline: 68px;
   padding-top: 20px;
   padding-bottom: 20px;
   border-radius: 15px;
-  width: 100%;
   border: 1px solid rgb(171, 165, 165);
 }
 
@@ -54,7 +50,6 @@ const shopNow = (): void => {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 30%;
 }
 
 .text {
@@ -67,7 +62,7 @@ const shopNow = (): void => {
 }
 
 .image {
-  /* width: 100px; */
   height: 250px;
+  margin-left: 27%;
 }
 </style>
