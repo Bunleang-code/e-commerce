@@ -59,17 +59,15 @@ const shopNow = (): void => {
 
 .text {
   color: #253d4e;
-  font-size: 25px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 600;
   line-height: 1.2;
   font-family: Quicksand, sans-serif;
-  margin: 0;
+  max-width: 155px;
 }
 
 .image {
   /* width: 100px; */
   height: 250px;
-  margin-right: -48px;
-  margin-bottom: -8px;
 }
 </style>
