@@ -60,8 +60,9 @@ const shopNow = (): void => {
 .text {
   color: #253d4e;
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.2;
+  font-family: Quicksand, sans-serif;
   margin: 0;
 }
 

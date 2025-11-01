@@ -6,7 +6,7 @@
         v-for="(category, i) in categories"
         :key="i"
         :name="category.name"
-        :item="category.items"
+        :items="category.items"
         :image="category.image"
         :bgColor="category.bgColor"
       />
@@ -32,16 +32,16 @@ import PromotionComponent from './components/PromotionComponent.vue'
 import CategoryComponent from './components/CategoryComponent.vue'
 import { ref } from 'vue'
 const categories = ref([
-  { name: 'Cake & Milk', items: '14', image: 'src/assets/cake & milk.png', bgColor: '#F2FCE4' },
-  { name: 'Peach', items: '17', image: 'src/assets/peach.png', bgColor: '#FFFCEB' },
-  { name: 'Oganic Kiwi', items: '21', image: 'src/assets/kiwi.png', bgColor: '#ECFFEC' },
-  { name: 'Red Apple', items: '68', image: 'src/assets/apple.png', bgColor: '#FEEFEA' },
-  { name: 'Snack', items: '34', image: 'src/assets/snack.png', bgColor: '#FFF3EB' },
-  { name: 'Black Plum', items: '25', image: 'src/assets/plum.png', bgColor: '#FFF3FF' },
-  { name: 'Vegetables', items: '65', image: 'src/assets/vegetable.png', bgColor: '#F2FCE4' },
-  { name: 'Headphone', items: '54', image: 'src/assets/headphone.png', bgColor: '#F2FCE4' },
-  { name: 'Cake & Milk', items: '54', image: 'src/assets/Cake & Milk2.png', bgColor: '#F2FCE4' },
-  { name: 'Orange', items: '63', image: 'src/assets/orange.png', bgColor: '#FFF3FF' },
+  { name: 'Cake & Milk', items: 14, image: 'src/assets/cake & milk.png', bgColor: '#F2FCE4' },
+  { name: 'Peach', items: 17, image: 'src/assets/peach.png', bgColor: '#FFFCEB' },
+  { name: 'Oganic Kiwi', items: 21, image: 'src/assets/kiwi.png', bgColor: '#ECFFEC' },
+  { name: 'Red Apple', items: 68, image: 'src/assets/apple.png', bgColor: '#FEEFEA' },
+  { name: 'Snack', items: 34, image: 'src/assets/snack.png', bgColor: '#FFF3EB' },
+  { name: 'Black Plum', items: 25, image: 'src/assets/plum.png', bgColor: '#FFF3FF' },
+  { name: 'Vegetables', items: 65, image: 'src/assets/vegetable.png', bgColor: '#F2FCE4' },
+  { name: 'Headphone', items: 54, image: 'src/assets/headphone.png', bgColor: '#F2FCE4' },
+  { name: 'Cake & Milk', items: 54, image: 'src/assets/Cake & Milk2.png', bgColor: '#F2FCE4' },
+  { name: 'Orange', items: 63, image: 'src/assets/orange.png', bgColor: '#FFF3FF' },
 ])
 
 const promotions = ref([
