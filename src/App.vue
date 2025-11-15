@@ -3,19 +3,20 @@
     <!-- CategoryComponent -->
     <div class="categoryContainer">
       <CategoryComponent
-        v-for="(category, i) in categories"
+        v-for="(category, i) in productStore.categories"
         :key="i"
         :name="category.name"
         :items="category.productCount"
         :image="category.image"
         :bgColor="category.color"
+        :group="category.group"
       />
     </div>
 
     <!-- PromotionComponent -->
     <div class="promotionContainer">
       <PromotionComponent
-        v-for="(promotion, i) in promotions"
+        v-for="(promotion, i) in productStore.promotions"
         :key="i"
         :title="promotion.title"
         :bgColor="promotion.color"
@@ -26,12 +27,14 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import PromotionComponent from './components/PromotionComponent.vue'
 // import ButtonComponent from './components/ButtonComponent.vue'
 import CategoryComponent from './components/CategoryComponent.vue'
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import { onMounted } from 'vue'
+// import axios from 'axios'
+import { useProductStore } from './stores/productStore'
 
 // const categories = ref([
 //   { name: 'Cake & Milk', productCount: 14, image: 'src/assets/cake & milk.png', color: '#F2FCE4' },
@@ -69,59 +72,65 @@ import axios from 'axios'
 //     imageStyle: { width: '190px', objectFit: 'fill' },
 //   },
 // ])
-const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || 'http://localhost:3000';
-interface Category {
-  name: string;
-  productCount: number;
-  image: string;
-  color: string;
-}
 
-interface Promotion {
-  title: string;
-  color: string;
-  image: string;
-  buttonColor: string;
-  imageStyle?: Record<string, string>;
-}
+// const BACKEND_URL = 'http://localhost:3000';
+// interface Category {
+//   name: string;
+//   productCount: number;
+//   image: string;
+//   color: string;
+// }
 
-const categories = ref<Category[]>([]);
-const promotions = ref<Promotion[]>([]);
+// interface Promotion {
+//   title: string;
+//   color: string;
+//   image: string;
+//   buttonColor: string;
+//   imageStyle?: Record<string, string>;
+// }
+
+// const categories = ref<Category[]>([]);
+// const promotions = ref<Promotion[]>([]);
 
 // Fetch categories from backend api
-const fetchCategories = async () => {
-  try {
-    const response = await axios.get(`${BACKEND_URL}/api/categories`);
-    // Add backend URL to image paths
-    categories.value = response.data.map((cat: Category) => ({
-      ...cat,
-      image: `${BACKEND_URL}/${cat.image}`
-    }));
-    console.log("Categories loaded:", categories.value);
-  } catch (error) {
-    console.error("Error fetching categories: ", error);
-  }
-}
+// const fetchCategories = async () => {
+//   try {
+//     const response = await axios.get(`${BACKEND_URL}/api/categories`);
+//     // Add backend URL to image paths
+//     categories.value = response.data.map((cat: Category) => ({
+//       ...cat,
+//       image: `${BACKEND_URL}/${cat.image}`
+//     }));
+//     console.log("Categories loaded:", categories.value);
+//   } catch (error) {
+//     console.error("Error fetching categories: ", error);
+//   }
+// }
 
-// Fetch promotions from backend api
-const fetchPromotions = async () => {
-  try {
-    const response = await axios.get(`${BACKEND_URL}/api/promotions`);
-    // Add backend URL to image paths
-    promotions.value = response.data.map((promo: Promotion) => ({
-      ...promo,
-      image: `${BACKEND_URL}/${promo.image}`
-    }));
-    console.log('Promotions loaded:', promotions.value);
-  } catch (error) {
-    console.error('Error fetching promotions:', error);
-  }
-}
+// // Fetch promotions from backend api
+// const fetchPromotions = async () => {
+//   try {
+//     const response = await axios.get(`${BACKEND_URL}/api/promotions`);
+//     // Add backend URL to image paths
+//     promotions.value = response.data.map((promo: Promotion) => ({
+//       ...promo,
+//       image: `${BACKEND_URL}/${promo.image}`
+//     }));
+//     console.log('Promotions loaded:', promotions.value);
+//   } catch (error) {
+//     console.error('Error fetching promotions:', error);
+//   }
+// }
+
+//Use the Pinia store
+const productStore = useProductStore();
 
 // Fetch data when component is mounted
 onMounted(() => {
-  fetchCategories()
-  fetchPromotions()
+  productStore.fetchCategories()
+  productStore.fetchPromotions()
+  productStore.fetchGroups()
+  productStore.fetchProducts()
 })
 </script>
 <style scoped>
