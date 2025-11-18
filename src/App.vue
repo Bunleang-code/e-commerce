@@ -1,15 +1,21 @@
 <template>
   <div class="container">
+    <!-- Featured Categories Section -->
+   <MenuComponent
+      title="Featured Categories"
+      :tabs="categoryTabs"
+      :activeTab="activeCategoryTab"
+      @tab-change="handleCategoryTabChange"
+    />
     <!-- CategoryComponent -->
     <div class="categoryContainer">
       <CategoryComponent
-        v-for="(category, i) in productStore.categories"
+        v-for="(category, i) in displayedCategories"
         :key="i"
         :name="category.name"
-        :items="category.productCount"
+        :items="category.productCount || category.items || 0"
         :image="category.image"
         :bgColor="category.color"
-        :group="category.group"
       />
     </div>
 
@@ -25,6 +31,27 @@
         :imageStyle="{ width: '190px', objectFit: 'fill' }"
       />
     </div>
+        <!-- Featured popular product Section -->
+      <MenuComponent
+        title="Popular Products"
+        :tabs="productTabs"
+        :activeTab="activeProductTab"
+        @tab-change="handleProductTabChange"
+    />
+    <div class="productContainer">
+      <ProductComponent
+        v-for="product in displayedPopularProducts"
+        :key="product.id"
+        :name="product.name"
+        :category="getCategoryName(product.categoryId)"
+        :image="product.image"
+        :price="product.price"
+        :rating="product.rating"
+        :size="product.size"
+        :discount="product.promotionAsPercentage"
+        @add-to-cart="handleAddToCart(product)"
+      />
+    </div>
   </div>
 </template>
 
@@ -32,9 +59,11 @@
 import PromotionComponent from './components/PromotionComponent.vue'
 // import ButtonComponent from './components/ButtonComponent.vue'
 import CategoryComponent from './components/CategoryComponent.vue'
-import { onMounted } from 'vue'
+import {ref, computed, onMounted } from 'vue'
 // import axios from 'axios'
 import { useProductStore } from './stores/productStore'
+import MenuComponent from './components/MenuComponent.vue';
+import ProductComponent from './components/ProductComponent.vue';
 
 // const categories = ref([
 //   { name: 'Cake & Milk', productCount: 14, image: 'src/assets/cake & milk.png', color: '#F2FCE4' },
@@ -124,6 +153,9 @@ import { useProductStore } from './stores/productStore'
 
 //Use the Pinia store
 const productStore = useProductStore();
+const activeCategoryTab = ref('All');
+const activeProductTab = ref('All')
+
 
 // Fetch data when component is mounted
 onMounted(() => {
@@ -132,6 +164,60 @@ onMounted(() => {
   productStore.fetchGroups()
   productStore.fetchProducts()
 })
+
+//Category tabs
+const categoryTabs = computed(()=>{
+  const groups = productStore.getGroupNames
+  return ['All', ...groups]
+})
+
+//Handle category tabs chnage
+const handleCategoryTabChange = (tab: string) => {
+  activeCategoryTab.value = tab
+}
+
+// Displayed categories based on active tab
+const displayedCategories = computed(() => {
+  if (activeCategoryTab.value === 'All') {
+    return productStore.categories.slice(0, 10)
+  } else {
+    return productStore.getCategoriesByGroup(activeCategoryTab.value)
+  }
+})
+
+// Product tabs
+const productTabs = computed(() => {
+  const groups = productStore.getGroupNames
+  return ['All', ...groups]
+})
+
+// Handle product tab change
+const handleProductTabChange = (tab: string) => {
+  activeProductTab.value = tab
+}
+
+// Displayed popular products based on active tab
+const displayedPopularProducts = computed(() => {
+  let products = productStore.getPopularProducts
+
+  if (activeProductTab.value !== 'All') {
+    products = products.filter(p => p.group === activeProductTab.value)
+  }
+
+  return products.slice(0, 10)
+})
+
+// Helper function to get category name by ID
+const getCategoryName = (categoryId: number) => {
+  const category = productStore.categories.find(c => c.id === categoryId)
+  return category ? category.name : 'Hodo Foods'
+}
+
+// Handle add to cart
+const handleAddToCart = (product: any) => {
+  console.log('Added to cart:', product)
+  alert(`Added ${product.name} to cart!`)
+}
 </script>
 <style scoped>
 .container {
@@ -140,18 +226,27 @@ onMounted(() => {
   justify-content: center;
   flex-direction: column;
   gap: 40px;
-  margin-top: 80px;
+  margin-top: -40px;
 }
 .categoryContainer {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  width: 98%;
   gap: 15px;
+  margin-top: -60px;
 }
 .promotionContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
+  margin-bottom: -70px;
+}.productContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 98%;
+  gap: 25px;
+  margin-top: -50px;
 }
 </style>
