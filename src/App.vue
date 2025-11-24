@@ -62,6 +62,7 @@ import CategoryComponent from './components/CategoryComponent.vue'
 import {ref, computed, onMounted } from 'vue'
 // import axios from 'axios'
 import { useProductStore } from './stores/productStore'
+import type { Product } from './stores/productStore'
 import MenuComponent from './components/MenuComponent.vue';
 import ProductComponent from './components/ProductComponent.vue';
 
@@ -214,7 +215,7 @@ const getCategoryName = (categoryId: number) => {
 }
 
 // Handle add to cart
-const handleAddToCart = (product: any) => {
+const handleAddToCart = (product: Product) => {
   console.log('Added to cart:', product)
   alert(`Added ${product.name} to cart!`)
 }
