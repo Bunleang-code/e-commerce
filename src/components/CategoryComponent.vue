@@ -39,6 +39,7 @@ img {
 .items {
   font-size: 10px;
   color: gray;
+  /* margin-top: 1rem; */
 }
 .text {
   text-align: center;
