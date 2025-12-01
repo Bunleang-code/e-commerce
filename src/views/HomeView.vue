@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-
-  <!-- <div class="header">
-    <img src="logo.png" alt="">
-  </div> -->
-
+    <HeroComponent />
     <!-- Featured Categories Section -->
    <MenuComponent
       title="Featured Categories"
@@ -21,6 +17,7 @@
         :items="category.productCount || category.items || 0"
         :image="category.image"
         :bgColor="category.color"
+        @click="navigateToCategory(category.id)"
       />
     </div>
 
@@ -34,6 +31,7 @@
         :image="promotion.image"
         :buttonColor="promotion.buttonColor"
         :imageStyle="{ width: '190px', objectFit: 'fill' }"
+        @click="navigateToPromotion(promotion)"
       />
     </div>
         <!-- Featured popular product Section -->
@@ -55,6 +53,7 @@
         :size="product.size"
         :discount="product.promotionAsPercentage"
         @add-to-cart="handleAddToCart(product)"
+        @click="navigateToProduct(product.id)"
       />
     </div>
   </div>
@@ -70,8 +69,7 @@ import { useProductStore } from '../stores/productStore'
 import type { Product } from '../stores/productStore'
 import MenuComponent from '../components/MenuComponent.vue';
 import ProductComponent from '../components/ProductComponent.vue';
-// import SearchBoxComponent from '../components/SearchBoxComponent.vue'
-// import logo from "src/assets/images"
+import HeroComponent from '@/components/HeroComponent.vue'
 
 // const categories = ref([
 //   { name: 'Cake & Milk', productCount: 14, image: 'src/assets/cake & milk.png', color: '#F2FCE4' },
@@ -226,6 +224,40 @@ const handleAddToCart = (product: Product) => {
   console.log('Added to cart:', product)
   alert(`Added ${product.name} to cart!`)
 }
+
+// Router navigation functions
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const navigateToCategory = (categoryId?: number) => {
+  if (categoryId) {
+    router.push({
+      name: 'category',
+      params: { categoryId }
+    })
+    // Changes URL to: /categories/3
+  }
+}
+
+const navigateToProduct = (productId?: number) => {
+  if (productId) {
+    router.push({
+      name: 'product',
+      params: { productId }
+    })
+    // Changes URL to: /products/5
+  }
+}
+
+
+const navigateToPromotion = (_promotion: any) => {
+  if (productStore.products.length > 0) {
+    router.push({
+      name: 'product',
+      params: { productId: '?'}
+    })
+  }
+}
+
 </script>
 <style scoped>
 .container {

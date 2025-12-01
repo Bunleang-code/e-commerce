@@ -26,6 +26,7 @@ defineProps({
   padding: 10px;
   border-radius: 10px;
   border: 1px solid rgb(171, 165, 165);
+  width: 100%;
 }
 img {
   width: 112.5px;

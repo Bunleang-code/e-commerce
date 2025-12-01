@@ -2,7 +2,7 @@
   <div class="promotion-section" :style="{ backgroundColor: bgColor }">
     <div class="content">
       <h1 class="text" v-html="title"></h1>
-      <ButtonComponent :label="buttonLabel" :color="buttonColor" @click="shopNow" />
+      <ButtonComponent :label="buttonLabel" :color="buttonColor" @click="$emit('click')" />
     </div>
     <img :src="image" alt="" class="image" :style="imageStyle" />
   </div>
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import ButtonComponent from './ButtonComponent.vue'
 
-const props = defineProps({
+  defineProps({
   image: String,
   title: String,
   bgColor: String,
@@ -29,9 +29,10 @@ const props = defineProps({
   },
 })
 
-function shopNow() {
-  alert("Let's shop " + props.title)
-}
+defineEmits(['click'])
+// function shopNow() {
+//   alert("Let's shop " + props.title)
+// }
 </script>
 
 <style scoped>
@@ -39,7 +40,7 @@ function shopNow() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 68px;
+  padding-inline: 94px;
   padding-top: 20px;
   padding-bottom: 20px;
   border-radius: 15px;
