@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+
+class ProductController extends Controller
+{
+    // GET /api/products
+    public function getProducts()
+    {
+        // eager load category
+        $products = Product::with('category')->get();
+
+        return response()->json($products);
+    }
+
+    // POST /api/products
+    public function createProduct(Request $request)
+    {
+        $request->validate([
+            'name'        => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'pricing'       => 'required|numeric',
+            'description' => 'nullable|string',
+            'images'      => 'nullable',
+        ]);
+
+        $product = Product::create([
+            'name'        => $request->name,
+            'category_id' => $request->category_id,
+            'pricing'       => $request->pricing,
+            'description' => $request->description,
+            'images'      => $request->images,
+        ]);
+
+        return response()->json($product, 201);
+    }
+
+    // GET /api/products/{productId}
+    public function getProduct($productId)
+    {
+        $product = Product::with('category')->findOrFail($productId);
+
+        return response()->json($product);
+    }
+
+    // PATCH /api/products/{productId}
+    public function updateProduct(Request $request, $productId)
+    {
+        $product = Product::findOrFail($productId);
+
+        $request->validate([
+            'name'        => 'sometimes|string|max:255',
+            'category_id' => 'sometimes|exists:categories,id',
+            'pricing'       => 'sometimes|numeric',
+            'description' => 'nullable|string',
+            'images'      => 'nullable',
+        ]);
+
+        $product->update($request->only([
+            'name',
+            'category_id',
+            'pricing',
+            'description',
+            'images',
+        ]));
+
+        return response()->json($product);
+    }
+
+    // DELETE /api/products/{productId}
+    public function deleteProduct($productId)
+    {
+        $product = Product::findOrFail($productId);
+        $product->delete();
+
+        return response()->json(['message' => 'Product deleted']);
+    }
+}
