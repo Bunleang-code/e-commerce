@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate<Support\Facades\Gate;
 
 class ProductController extends Controller{
     // GET /api/products
@@ -16,6 +17,8 @@ class ProductController extends Controller{
 
     // POST /api/products
     public function createProduct(Request $request){
+
+        abort_unless(auth()->user()->can('products.create'), 403); // Check permission
 
         $request->validate([
             'name'        => 'required|string|max:255',
@@ -53,6 +56,8 @@ class ProductController extends Controller{
     // PATCH /api/products/{productId}
     public function updateProduct(Request $request, $productId){
 
+        abort_unless(auth()->user()->can('products.update'), 403); // Check permission
+
         $product = Product::findOrFail($productId);
 
         $request->validate([
@@ -82,6 +87,9 @@ class ProductController extends Controller{
 
     // DELETE /api/products/{productId}
     public function deleteProduct($productId){
+
+        abort_unless(auth()->user()->can('products.delete'), 403); // Check permission
+
         $product = Product::findOrFail($productId);
         $product->delete();
 

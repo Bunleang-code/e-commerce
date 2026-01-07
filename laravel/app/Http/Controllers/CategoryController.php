@@ -19,6 +19,9 @@ class CategoryController extends Controller
     // POST /api/categories
     public function createCategory(Request $request)
     {
+
+        abort_unless(auth()->user()->can('categories.create'), 403); // Check permission
+
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
@@ -41,6 +44,8 @@ class CategoryController extends Controller
     // PATCH /api/categories/{categoryId}
     public function updateCategory(Request $request, $categoryId)
     {
+        abort_unless(auth()->user()->can('categories.update'), 403); // Check permission
+
         $category = Category::findOrFail($categoryId);
 
         $request->validate([
@@ -57,6 +62,8 @@ class CategoryController extends Controller
     // DELETE /api/categories/{categoryId}
     public function deleteCategory($categoryId)
     {
+        abort_unless(auth()->user()->can('categories.delete'), 403); // Check permission
+
         $category = Category::findOrFail($categoryId);
         $category->delete();
 
