@@ -10,17 +10,15 @@ class CategoryController extends Controller
     // GET /api/categories
     public function getCategories()
     {
-        // returns Illuminate\Database\Eloquent\Collection
-        $categories = Category::all();
+        $this->authorize('viewAny', Category::class);
 
-        return response()->json($categories);
+        return response()->json(Category::all());
     }
 
     // POST /api/categories
     public function createCategory(Request $request)
     {
-
-        abort_unless(auth()->user()->can('categories.create'), 403); // Check permission
+        $this->authorize('create', Category::class);
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -28,25 +26,24 @@ class CategoryController extends Controller
 
         $category = Category::create([
             'name' => $request->name,
+            'created_by' => auth()->id(), // important for policy
         ]);
 
         return response()->json($category, 201);
     }
 
-    // GET /api/categories/{categoryId}
-    public function getCategory($categoryId)
+    // GET /api/categories/{category}
+    public function getCategory(Category $category)
     {
-        $category = Category::findOrFail($categoryId);
+        $this->authorize('view', $category);
 
         return response()->json($category);
     }
 
-    // PATCH /api/categories/{categoryId}
-    public function updateCategory(Request $request, $categoryId)
+    // PATCH /api/categories/{category}
+    public function updateCategory(Request $request, Category $category)
     {
-        abort_unless(auth()->user()->can('categories.update'), 403); // Check permission
-
-        $category = Category::findOrFail($categoryId);
+        $this->authorize('update', $category);
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -59,12 +56,11 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    // DELETE /api/categories/{categoryId}
-    public function deleteCategory($categoryId)
+    // DELETE /api/categories/{category}
+    public function deleteCategory(Category $category)
     {
-        abort_unless(auth()->user()->can('categories.delete'), 403); // Check permission
+        $this->authorize('delete', $category);
 
-        $category = Category::findOrFail($categoryId);
         $category->delete();
 
         return response()->json(['message' => 'Category deleted']);
