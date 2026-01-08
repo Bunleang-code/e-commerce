@@ -57,6 +57,7 @@ Route::middleware('auth:api')->group(function () {
         ]);
     });
 
+    Route::post('/categories', [CategoryController::class, 'createCategory']);
     Route::get('/categories', [CategoryController::class, 'getCategories']);
     Route::post('/products', [ProductController::class, 'createProduct']);
     Route::patch('/categories/{category}', [CategoryController::class, 'updateCategory']);

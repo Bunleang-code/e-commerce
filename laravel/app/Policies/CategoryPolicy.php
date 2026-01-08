@@ -45,7 +45,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('manager');
+        return $user->hasRole('manager') || $user->hasRole('admin'); 
     }
 
     /**
