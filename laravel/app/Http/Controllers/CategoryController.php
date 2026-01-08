@@ -10,6 +10,7 @@ class CategoryController extends Controller
     // GET /api/categories
     public function getCategories()
     {
+        
         $this->authorize('viewAny', Category::class);
 
         return response()->json(Category::all());
