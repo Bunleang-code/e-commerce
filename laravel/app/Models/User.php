@@ -62,5 +62,19 @@ class User extends Authenticatable
             ->exists();
     }
 
-    
+    //use wrote many comments
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    //Author acc (optional)
+    public function author(){
+        return $this->hasOne(Ahthor:class);
+    }
+
+    //Audience acc (optional)
+    public function audience(){
+        return $this->hasOne(Audience::class);
+    }
+   
 }
