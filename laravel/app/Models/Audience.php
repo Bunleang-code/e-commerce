@@ -2,26 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory
 
 class Audience extends Model
 {
-    use HasFactory;
-    protected $fillable = ['name', 'article_id', 'uers_id'];
+    protected $fillable = ['name', 'user_id'];
 
-    // Audience has one user
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
-
-    //Audience belongs to article
-    public function aricles(){
+    public function article()
+    {
         return $this->belongsTo(Article::class);
     }
 
-    //Audience has many comments (polymorphic)
-    public function comments(){
-        return $this->morphMany(Comment::class), 'commentable';
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

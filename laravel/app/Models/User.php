@@ -69,7 +69,7 @@ class User extends Authenticatable
 
     //Author acc (optional)
     public function author(){
-        return $this->hasOne(Ahthor:class);
+        return $this->hasOne(Author::class);
     }
 
     //Audience acc (optional)
